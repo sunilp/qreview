@@ -1,0 +1,9 @@
+@(myForm: Form[User])
+
+@helper.form(action = routes.Application.index) {
+    
+    @helper.inputText(myForm("username"))
+    
+    @helper.inputPassword(myForm("password"))
+    
+}

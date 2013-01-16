@@ -1,0 +1,38 @@
+@(message: String)(myForm: Form[User])
+
+@import helper.twitterBootstrap._
+
+
+
+
+@main("Code Review") {
+    
+  <div class="center hero-unit">
+ <h1>Coding errors...</h1>
+
+  <h2> @message </h2>
+
+
+  @helper.form(action = routes.ReviewController.index) {
+    
+    @helper.inputText(myForm("username"),'_label -> "#ID ")
+   <!--  
+    @helper.input(myForm("password")) { (id, name, value, args) =>
+    <textarea rows="4" cols="50" name="@name" id="@id" @toHtmlArgs(args)></textarea> 
+	}
+	--> 
+    <input class="btn btn-large btn-primary" type="submit" value="Go"/>
+}
+
+
+
+</div>
+
+  
+    
+   
+  
+   
+}
+
+

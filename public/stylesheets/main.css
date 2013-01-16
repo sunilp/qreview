@@ -1,0 +1,17 @@
+
+.b-unit {
+    /*background-color: #FFF;*/
+    border-color:gray;
+    border-width:thin;
+    border-radius: 6px 6px 6px 6px;
+    color: inherit;
+    font-size: 8px;
+    /*font-weight: 200;*/
+    line-height: 30px;
+    margin-bottom: 30px;
+    padding: 20px 20px 20px 20px;
+}
+
+th,td {
+	 font-size: 12px;
+}
