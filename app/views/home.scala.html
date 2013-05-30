@@ -1,0 +1,219 @@
+@(reviews: List[models.ReviewDetail])(username: String) 
+
+@import helper._
+
+
+
+@main("Code Review")(username) {
+
+
+<script src="@routes.Assets.at("javascripts/jquery.dataTables.js")" type="text/javascript"></script>
+<script src="@routes.Assets.at("javascripts/DT_bootstrap.js")" type="text/javascript"></script>
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/DT_bootstrap.css")" />
+<script src="@routes.Assets.at("javascripts/reviews.js")" type="text/javascript"></script>
+
+
+
+<script type="text/javascript">
+
+function showReview(idToGet){
+
+    $.ajax({
+        type : 'GET',
+        url : '/review/'+idToGet,
+        data : {
+            id: idToGet
+        },
+        success : function(data) {
+            $('#reviewDetailModel').html(data);
+
+        }
+    });
+   
+  $('#reviewDetailModel').modal('show');
+}
+
+function updateReview(idToGet){
+
+    $.ajax({
+        type : 'GET',
+        url : '/review-e/'+idToGet,
+        data : {
+            id: idToGet
+        },
+        success : function(data) {
+            $('#updateReviewModel').html(data);
+
+        }
+    });
+   
+  $('#updateReviewModel').modal('show');
+}
+
+function addReview(){
+
+    $.ajax({type : 'GET', url : '/review/new', data : {}, success : function(data) {
+            $('#addReviewModel').html(data);
+        }
+    });
+   
+  $('#addReviewModel').modal('show');
+}
+
+function updateUser(idToGet){
+
+    $.ajax({type : 'GET', url : '/user/'+idToGet, data : {id: idToGet }, success : function(data) {
+            $('#editUserModel').html(data);
+        }
+    });
+   
+  $('#editUserModel').modal('show');
+}
+
+
+
+
+</script>
+
+<br/><br/>
+<div class="row-fluid">
+
+
+<div class="span9 " >
+<span class="label label-info">Common Errors</span>
+	<div class="well well-small">
+	
+		<table class="table table-condensed">
+		<thead>
+			<tr>
+				<th>#ID</th>
+				<th>Code Fault</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr>
+				<td>1001</td>
+				<td>Instantiation of Service Class in Action, it should be injected </td>
+			</tr>
+			<tr>	
+				<td>1002</td>
+				<td>Comments Missing, Class level and Method level comments should be should be proper and descriptive </td>
+			</tr>
+		</tbody>
+			
+		</table>
+	</div>
+
+ <a class="label label-info" href="@routes.ReviewController.allReviews">Current Reviews</a>
+
+<div class="well well-small">
+
+  
+
+<table class="table table-condensed table-striped table-hover " id="reviewsTable">
+
+<thead>
+	
+<tr>
+	<th>#ID</th>
+	<!-- <th>Reviewer</th> -->
+	<th>Summary</th>
+	<th>Assigned-To</th>
+	<th>On File</th>
+	<th>Functionality</th>
+	<th>Status</th>
+	<th>&nbsp;</th>
+</tr>
+</thead>
+<tbody id="ttbody">
+@for(r <- reviews) {
+@if("Fixed".equalsIgnoreCase(r.getStatus())) {
+<tr class="success">
+}else{ 
+@if("Closed".equalsIgnoreCase(r.getStatus()) || "Duplicate".equalsIgnoreCase(r.getStatus())){
+<tr class="ddone">
+}else{
+<tr>	
+}}	
+
+  <td> <a href="javascript:showReview(@r.getReviewId())"> @r.getReviewId()</a></td>
+<!--  <td>@r.getReviewerId()</td> -->
+  <td>@r.getSummery()</td>
+  <td>@r.getAssignedTo()</td>
+  <td>@r.getFileName()</td>
+  <td>@r.getGroup()</td>
+ 	 @if("Open".equalsIgnoreCase(r.getStatus()) && !"0".equals(r.getDatePassedCreation())) {
+  <td>@r.getStatus() [@r.getDatePassedCreation()days]</td>
+  }else{
+  <td>@r.getStatus()</td>
+  }
+  <td> <a class="btn btn-link" href="javascript:updateReview(@r.getReviewId())"> <i class="icon-pencil"></i> </a></td>
+</tr> 
+}
+
+</tbody>
+
+
+</table>
+
+    
+    
+</div>
+</div>
+
+
+ <div class="span3">
+
+ 	<span class="label label-info">Actions</span>
+ 
+ 	<div class="b-unit">
+	<a	href="javascript:addReview()" role="button" class="btn btn-info btn-small"> New Entry </a>
+	<a class="btn btn-info btn-small" href="@routes.ReviewController.excelExport">Export Reviews</a>
+	<a class="btn  btn-small" href="@routes.ReviewController.excelExportCustomFormat">Customer Format Export</a>
+	</div>	
+
+	
+	<div id="rightItem-1">
+	 <div class="well">
+		@task(username)(true)
+	</div>
+		<br/>
+		
+		@chatRoom(username)
+	
+	</div>
+
+</div>
+
+
+
+  
+<div class="row-fluid">
+<div class="span3">
+
+</div>	
+</div>
+
+
+<div id="editUserModel" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+
+
+<div id="reviewDetailModel" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+
+</div>
+
+<div id="updateReviewModel" class="modal hide fade qedit" tabindex="-1" role="dialog"  aria-hidden="true">
+
+</div>
+
+
+<div id="addReviewModel" class="modal hide fade qedit" tabindex="-1" role="dialog"  aria-hidden="true">
+
+ 
+
+</div>
+
+</div>
+
+}

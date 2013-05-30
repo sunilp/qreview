@@ -1,0 +1,51 @@
+@(rForm: Form[ReviewDetail])
+
+@import helper._
+
+
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="addReviewModelLabel">New Review</h3>
+</div>
+
+	<div class="b-unit row-fluid">
+
+			
+
+		@helper.form(action = routes.ReviewController.add,'class -> ".form-horizontal") {
+		
+		
+		<div class="span6">
+		@inputText(rForm("group"),'_label -> "Module ")
+		@inputText(rForm("type"),'_label -> "Review Type ")
+		@inputText(rForm("assignedTo"),'_label -> "Assigned To ") 
+				
+		
+		@inputText(rForm("severity"),'_label -> "Severity ")
+		@inputText(rForm("fileName"),'_label -> "File Name ")
+		@inputText(rForm("phase"),'_label -> "Review Phase ")
+		</div>
+		
+		<div class="span4" >
+		@input(rForm("summery"),'_label -> "Summary ") { (id, name, value, args) =>
+		<textarea rows="2" name="@name" id="@id"@toHtmlArgs(args)>@value</textarea>
+		}
+		
+		
+		@input(rForm("description"),'_label -> "Description ") { (id, name, value, args) =>
+		<textarea rows="10" cols="100" name="@name" id="@id"@toHtmlArgs(args)>@value</textarea>
+		}
+		
+		<input type="submit" value="Add" class="btn btn-inverse"/>
+		</div>
+		
+		
+		}
+		
+			
+	 </div>
+
+ <div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+
+</div>	

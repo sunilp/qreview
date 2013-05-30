@@ -1,0 +1,61 @@
+@(rForm: Form[ReviewDetail])
+
+@import helper._
+
+
+@helper.form(action = routes.ReviewController.updateReview(rForm("reviewId").value),'class -> ".form-horizontal") {
+
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="addReviewModelLabel">Review #@rForm("reviewId").value</h3>
+</div>
+
+	<div class="b-unit row-fluid">
+		
+		<div class="span6">
+		@inputText(rForm("group"),'_label -> "Functionality ")
+		
+		@inputText(rForm("assignedTo"),'_label -> "Assigned To ") 
+	
+
+		@inputText(rForm("severity"),'_label -> "Severity ")
+		@inputText(rForm("fileName"),'_label -> "File Name ")
+		@inputText(rForm("phase"),'_label -> "Review Phase ")
+		@inputText(rForm("type"),'_label -> "Review Type ")
+		</div>
+		
+		<div class="span4" >
+
+		@inputText(rForm("status"),'_label -> "Status ")
+		
+			
+		@input(rForm("summery"),'_label -> "Summary ") { (id, name, value, args) =>
+		<textarea rows="2" name="@name" id="@id"@toHtmlArgs(args)>@value</textarea>
+		}
+		
+		@input(rForm("description"),'_label -> "Description ") { (id, name, value, args) =>
+		<textarea rows="2" name="@name" id="@id"@toHtmlArgs(args)>@value</textarea>
+		}
+		
+		@input(rForm("comment"),'_label -> "Developer Comment ") { (id, name, value, args) =>
+		<textarea rows="2" cols="100" name="@name" id="@id"@toHtmlArgs(args)>@value</textarea>
+		}
+		<input type="submit" value="Save" class="btn btn-inverse"/>
+		
+		</div>
+		
+		
+	
+		
+			
+	 </div>
+
+ <div class="modal-footer">
+ 	
+
+<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+
+</div>	 
+
+
+	}

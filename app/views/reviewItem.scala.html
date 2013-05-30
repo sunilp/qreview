@@ -1,0 +1,51 @@
+@(review: ReviewDetail)
+
+
+
+<!-- Modal -->
+
+
+
+
+<!--  <div id="reviewDetailModel" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> -->
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="myModalLabel" class="label">Review #@review.getReviewId()</h3>
+</div>
+<div class="modal-body">
+
+
+<label > Summary </label>  @review.getSummery()
+
+
+<table class="table">
+	<tr>
+		<td><label> Reviewer </label> </td> <td> @review.getReviewerId() </td>
+		<td><label> Severity </label> </td> <td> @review.getSeverity()</td>
+	</tr>
+
+	<tr>
+		<td><label> File Name </label> </td> <td> @review.getFileName()  </td>
+		<td><label> Assigned To </label> </td> <td> @review.getAssignedTo() </td>
+	</tr>
+
+
+	<tr>
+		<td colspan="4"><label > Description </label> @review.getDescription()  </td>
+	</tr>
+
+
+	<tr>
+		<td colspan="4"><label > Comments </label> @review.getComment()  </td>
+	</tr>
+</table>
+
+
+
+</div>
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+</div>
+<!-- </div> -->
+
+

@@ -1,0 +1,275 @@
+@(username: String)(loggedin: Boolean)
+
+
+   <div class='page'>
+   </div>
+
+<script src="@routes.Assets.at("javascripts/bootstrap-datepicker.js")" type="text/javascript"></script>
+
+
+
+<script type="text/template" id="task-list-template">
+
+
+<div class="bbox ">
+	 
+	 <!--    <div class=" pull-right"> -->
+	   <!--  <span class="label"> Todo:</span> -->
+	      <a href="#/new" class="btn btn-info btn-small" title="Create New Task"><i class="icon-edit icon-white"></i></a>
+	     <!-- <a href="#" class="btn btn-info btn-small">Create Section</a> -->
+	    
+	<!-- 	</div> -->
+	    <blockquote class="pull-right">My Todo's
+		</blockquote>
+	  
+</div>
+
+
+	
+<div class="row-fluid">	
+<div class="b-unit">	
+	<table class="table  table-condensed">
+
+	
+		<tbody>
+		<% _.each(tasks, function(task){ %>
+
+			<tr>
+				
+				<td><strong> <%= task.get('todo') %> </strong> <br/>
+				 	 [<%= task.get('due') %>] &nbsp;
+				 <!--	 [<%= task.get('details') %>] &nbsp;  -->
+        	         [<%= task.get('status') %>] &nbsp;
+        			<% if( task.get('owner') != "@username"){ %>
+					[<%= task.get('owner') %>]
+					<%};%>
+				</td>
+				<td><a  href="#/edit/<%= task.id %>" title="Edit Selected Task"><i class="icon-pencil"></i></a></td>
+			</tr>
+     
+		<% }); %>
+		</tbody>
+	</table>
+</div>
+</div>
+
+
+
+</script>
+
+
+
+<script type="text/template" id="task-edit-template">
+
+ <form class="edit-task-form">
+      <legend class="text-info"><%= task ? 'Edit' : 'New' %> Tasks</legend>
+
+		<label>Todo For <blockquote class="pull-right">if not self</blockquote> </label>
+		<select name="assignTo" id="subordinates-l"> </select>
+
+        <label>Todo</label>
+        <input name="todo" type="text" value="<%= task ? task.get('todo') : '' %>">
+ 
+
+       <label>Due Date</label> 
+         <div class=" input-append date" id="datepicker" data-date="dateValue: task.due" data-date-format="dd/mm/yyyy">
+            <input class="input-medium" name="due"  size="16" type="text" data-bind="value: task.due" readonly="readonly" value="<%= task ? task.get('due') : '' %>"/>
+            <span class="add-on"><i class="icon-calendar"></i></span>
+        </div> 
+
+		
+
+        <label>Any Remarks</label>
+        <input name="details" type="text" value="<%= task ? task.get('details') : '' %>">
+
+        <% if(task) { %>
+        <label>Done?</label>
+
+          <% if(task.get('done')) { %>
+            <input name="done" type="checkbox" value="true" checked="checked">
+             <% }else { %>
+          <input name="done" type="checkbox" value="true" >
+             <% }; %>
+        <% }; %>
+
+        <hr/>
+       <button  class="btn btn-small"><%= task ? 'Update' : 'Create' %></button>
+       <% if(task) { %>
+        <input type="hidden" name="id" value="<%= task.id %>" />
+       <button data-user-id="<%= task.id %>" class="btn btn-danger btn-small delete">Delete</button>
+       <% }; %>
+	<a href="#" class="btn btn-small">Cancel </a>
+    </form>
+
+</script>
+
+
+<script type="text/javascript">
+
+
+function getSubs(idToGet){
+
+    $.ajax({
+        type : 'GET',
+        url : '/subs/'+idToGet,
+        data : {
+            id: idToGet
+        },
+        success : function(data) {
+        	var options = '';
+        	if(data!=null){
+        	 for (var i = 0; i < data.length; i++) {
+        		 options += '<option value="' + data[i] + '">' + data[i] + '</option>';
+        	 }
+        	}
+
+            $('#subordinates-l').html(options);
+        }
+    });
+
+}
+
+   function htmlEncode(value){
+      return $('<div/>').text(value).html();
+    }
+    $.fn.serializeObject = function() {
+      var o = {};
+      var a = this.serializeArray();
+      $.each(a, function() {
+          if (o[this.name] !== undefined) {
+              if (!o[this.name].push) {
+                  o[this.name] = [o[this.name]];
+              }
+              o[this.name].push(this.value || '');
+          } else {
+              o[this.name] = this.value || '';
+          }
+      });
+      return o;
+    };
+
+$.ajaxPrefilter(function (options, originalOptions,jqXHR){
+	//options.url = 'http://localhost:9000' + options.url;
+});
+
+var Task = Backbone.Model.extend({
+ urlRoot: '/tasks'
+  
+});
+
+
+var Tasks = Backbone.Collection.extend({
+	url: '/tasks',
+  model: Task
+});
+
+
+var TaskListView = Backbone.View.extend({
+  el: '.page',
+  render: function(){
+  	var pp = this;
+  	console.log('1');
+  	var tasks = new Tasks();
+  	tasks.fetch({
+  		success: function(tasks) {
+  			var template = _.template($('#task-list-template').html(),{tasks: tasks.models});
+  			console.log('2');
+  			pp.$el.html(template);
+  		}
+  	});
+  	
+  }
+});
+
+var TaskEditView = Backbone.View.extend({
+ el: '.page',
+ events:{
+  'submit .edit-task-form':'saveTask',
+  'click .delete' : 'deleteTask'
+ },
+ saveTask: function(ev){
+  console.log("in save task");
+ 	var taskDetails = $(ev.currentTarget).serializeObject();
+  console.log("serializedObject");
+ 	var task = new Task();
+ 	task.save(taskDetails,{
+ 		success: function(task){
+      console.log("sucess from server");
+ 			router.navigate('',{trigger:true});
+ 		}
+ 	});
+  return false;
+ },
+ deleteTask: function(ev){
+  console.log('destroying..');
+ 	this.task.destroy({
+ 		success: function(){
+ 			console.log('destroyed');
+ 			router.navigate('',{trigger:true});
+ 		}
+ 	});
+  return false;
+ },
+ render:function(options){
+ 	var that=this;
+ 	if(options.id){
+ 		that.task = new Task({id: options.id});
+ 		that.task.fetch({
+ 			success: function(task){
+        console.log("fetched the model" + that.task);
+ 				var template = _.template($('#task-edit-template').html(),{task:task});
+ 				that.$el.html(template);
+        $('#datepicker').datepicker();
+        getSubs("@username");
+ 			}
+ 		});
+ 	}else{
+ 	var template = _.template($('#task-edit-template').html(),{task:null});
+ 	this.$el.html(template);
+  	$('#datepicker').datepicker();
+ 	 getSubs("@username");
+ 	}
+ }
+});
+
+var Router = Backbone.Router.extend({
+	routes: {
+		'': 'home',
+		'new':'editTask',
+		"edit/:id": "editTask",
+	}
+});
+
+
+var taskListView = new TaskListView();
+var taskEditView = new TaskEditView();
+
+var router = new Router();
+router.on('route:home',function (){
+	console.log('We have loaded the home page');
+	taskListView.render();
+});
+
+router.on('route:editTask',function (id){
+	console.log('We have loaded the new/edit page');
+	taskEditView.render({id: id});
+});
+
+Backbone.history.start();
+
+
+$(document).ready(function() {
+    $('.edit-task-form').submit(function(e) {
+        e.preventDefault();
+  
+    });
+});
+</script>
+
+
+
+
+
+
+
+

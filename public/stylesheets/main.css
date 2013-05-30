@@ -1,0 +1,187 @@
+
+.b-unit {
+    /*background-color: #FFF;*/
+    border-color:gray;
+    border-width:thin;
+    border-radius: 6px 6px 6px 6px;
+    color: inherit;
+    font-size: 8px;
+    /*font-weight: 200;*/
+    line-height: 30px;
+    margin-bottom: 30px;
+    padding: 20px 20px 1px 20px;
+}
+
+.ddone{
+    text-decoration: line-through;
+}
+
+th,td {
+	 font-size: 12px;
+}
+
+.well{
+  background-color:inherit;
+  border: 1px solid #EFF8FB;
+}
+
+
+ #push,
+      #footer {
+        height: 60px;
+      }
+      #footer {
+        background-color: #f5f5f5;
+      }
+
+      /* Lastly, apply responsive CSS fixes as necessary */
+      @media (max-width: 767px) {
+        #footer {
+          margin-left: -20px;
+          margin-right: -20px;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+      }
+
+
+      #rightItem-1{
+     /* position: fixed;
+        right: 1px;
+       width: auto;
+      */ 
+      padding-left: 20px;
+      }
+
+.qedit{
+	top: 5%;
+	width: 600px;
+}
+.modal.fade.in {
+    top: 5%;
+}
+
+#onError, #onChat {
+    display: none;
+
+}
+
+#onChat {
+    padding-top: 20px;
+
+}
+
+
+#members li{
+    width: 60px;
+    float: left;
+}
+
+
+#messages {
+    height: 400px;
+    overflow: auto;
+     font-size: 10px;
+     
+     
+
+}
+#messages p {
+   font-size: 10px;
+  /*  text-align: center; */
+   
+   
+     	
+   
+}
+
+#talk {
+  /* 
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: 40px
+    */
+    width: 255px;
+     height: 40px;
+}
+
+.message {
+  
+
+	   padding: 4px 0;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    
+     background: -moz-linear-gradient(90deg, rgb(197, 199, 203) 0%, rgb(250, 251, 251) 100%) #999;
+	 background: -webkit-gradient(linear, left bottom, left top, from(rgb(197, 199, 203)), to(rgb(250, 251, 251))) #999;
+	 border-top: 1px solid rgba(0, 0, 0, 0.15);
+	 height: auto; 
+	 margin: 0;
+	
+	border-radius: 5px 5px 5px 0px;
+	-webkit-border-radius: 5px 5px 5px 0px;
+	-moz-border-radius: 5px 5px 5px 0px;
+	-o-border-radius: 5px 5px 5px 0px;
+	-ms-border-radius: 5px 5px 5px 0px;
+		
+		
+	position: relative; float: left;
+	margin-right: auto;
+	padding: 4px 10px 4px 10px;	
+}
+
+
+.message span {
+
+	
+    width: 70px;
+    overflow: hidden;
+    text-align: right;
+    font-weight: bold;
+    margin-right: 5px;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    top: -1px;
+   
+}
+
+.message p {
+	
+    display: inline-block;
+    margin: 0;
+    width: 180px;
+    font-size: 12px;
+   
+   
+}
+
+.message.me {
+   /* background: #FFC; */
+   float: right;
+	margin-left: auto;
+	text-align: right;
+	
+	 background: -moz-linear-gradient(90deg, rgb(197, 199, 203) 0%, rgb(250, 251, 251) 100%) #999;
+	 background: -webkit-gradient(linear, left bottom, left top, from(rgb(197, 199, 203)), to(rgb(250, 251, 251))) #999;
+	
+	padding: 4px 15px 4px 10px;
+	
+	border-radius: 5px 5px 0px 5px;
+	-webkit-border-radius: 5px 5px 0px 5px;
+	-moz-border-radius: 5px 5px 0px 5px;
+	-o-border-radius: 5px 5px 0px 5px;
+	-ms-border-radius: 5px 5px 0px 5px;
+
+}
+
+
+
+
+.message.join, .message.quit {
+    background: #F9F9F9;
+    display: none;
+}

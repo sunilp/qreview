@@ -1,0 +1,33 @@
+body {
+    font: normal 15px Helvetica Neue,Helvetica,sans-serif;
+    margin: 10px 25px;
+	background-color: #f5f5f5;
+}
+table{
+	background-color: white;
+}
+#table-csa {
+	background-color: #f5f5f5;
+	padding: 5px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border: 1px solid #ebebeb;
+}
+#table-csa td, #table-csa th {
+	padding: 6px 15px;
+}
+#table-csa thead {
+	font: normal 15px Helvetica Neue,Helvetica,sans-serif;
+	text-shadow: 0 1px 0 white;
+	color: #999;
+}
+#table-csa th {
+	text-align: center;
+	border-bottom: 1px solid #fff;
+}
+#table-csa td {
+	font: normal 15px Helvetica Neue,Helvetica,sans-serif;
+	text-align: center;
+	font-size: 14px;
+}

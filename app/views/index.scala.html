@@ -1,19 +1,19 @@
-@(myForm: Form[User])
+@(message: String)(myForm: Form[User])
 
 @import helper.twitterBootstrap._
 
 
 
 
-@main("Code Review") {
+@main("Code Review")("null") {
     
   <div class="center hero-unit">
- <h1>Coding errors...</h1>
+ <h1>Developers work area...</h1>
 
-  <h2> Expressing your views..</h2>
+  <h2> @message </h2>
 
 
-  @helper.form(action = routes.ReviewController.index) {
+  @helper.form(action = routes.Application.submit) {
     
     @helper.inputText(myForm("username"),'_label -> "#ID ")
    <!--  

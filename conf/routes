@@ -2,12 +2,47 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
-GET     /                           controllers.Application.index
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /assets/*file         controllers.Assets.at(path="/public", file)
 
-POST     /               controllers.ReviewController.index()
+GET     /                	  controllers.Application.index()
+POST    /               	  controllers.Application.submit()
 
-POST     /review            controllers.ReviewController.add()
+GET     /signout         	  controllers.Application.signOut()
+
+GET     /reviews         	  controllers.ReviewController.allReviews()
+GET     /review/new           controllers.ReviewController.createReview()
+POST    /review         	  controllers.ReviewController.add()
+POST    /review/newE           controllers.ReviewController.newReview()
+
+
+GET     /socket               controllers.SocketController.index()
+GET     /room                 controllers.SocketController.chatRoom(username: String ?= null)
+GET     /room/chat            controllers.SocketController.chat(username)
+
+
+GET     /review/:id           controllers.ReviewController.getReview(id: String)
+GET     /review-e/:id         controllers.ReviewController.getReviewForEdit(id: String)
+POST    /review-e/:id         controllers.ReviewController.updateReview(id: String)
+
+
+GET     /reviews/export.xls   controllers.ReviewController.excelExport()
+GET     /reviews/review_export.xls   controllers.ReviewController.excelExportCustomFormat()
+
+GET 	/ie_reject.html       controllers.Application.rejectIE()
+
+
+GET     /tasks                controllers.TaskController.taskList()
+GET     /tasks/:id            controllers.TaskController.getTask(id)
+POST 	/tasks                controllers.TaskController.add()
+PUT 	/tasks/:id            controllers.TaskController.update(id)
+DELETE 	/tasks/:id            controllers.TaskController.delete(id)
+
+GET     /subs/:id			   controllers.TaskController.getSubOrdinates(id)
+
+GET     /user/:id             controllers.UserController.showUser(id)
+POST     /user           	  controllers.UserController.updateUser()
+
+
+

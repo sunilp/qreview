@@ -1,0 +1,125 @@
+@(username: String)
+
+      
+    <div id="onError" class="alert-message error">
+        <p>
+             <span></span>
+        </p>
+    </div>
+    
+     <div id="users-list">
+           
+            <i class="icon-user"></i>
+            <br/>
+            <ul id="members" class="nav ">
+            </ul>
+        </div>
+    
+    <div id="onChat" class="">
+        <div class="" id="main">
+            <div id="messages">
+            </div>
+            <textarea id="talk"></textarea>
+        </div>
+       
+    </div>
+    
+    <script type="text/javascript" charset="utf-8">
+    
+    var chatSocket;
+    
+        $(function() {
+            var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket;
+	         chatSocket = new WS("@routes.SocketController.chat(username).webSocketURL()");
+            
+            var sendMessage = function() {
+                chatSocket.send(JSON.stringify(
+                    {text: $("#talk").val()}
+                ));
+                $("#talk").val('');
+            }
+            
+            var receiveEvent = function(event) {
+                var data = JSON.parse(event.data);
+                
+                // Handle errors
+                if(data.error) {
+                    chatSocket.close();
+                    $("#onError span").text(data.error);
+                    $("#onError").show();
+                    return ;
+                } else {
+                    $("#onChat").show();
+                }
+                
+                // Create the message element
+                var el = $('<div class="message"><span></span><p></p></div>');
+                $("span", el).text(data.user);
+                $("p", el).text(data.message);
+                $(el).addClass(data.kind);
+                if(data.user == '@username') $(el).addClass('me');
+                $('#messages').append(el);
+                
+                // Update the members list
+                $("#members").html('') ;
+                $(data.members).each(function() {
+                    $("#members").append('<li><span class="badge">' + this + '</span></li>');
+                });
+                $('#messages').animate({ scrollTop: $('#messages').prop("scrollHeight") +200- $('#messages').height() }, 100);
+            }
+            
+            var handleReturnKey = function(e) {
+
+               
+                       if (e.keyCode == 13 && e.shiftKey) {
+                           var content = this.value;
+                           var caret = getCaret(this);
+                           this.value = content.substring(0,caret)+
+                                         "\n"+content.substring(caret,content.length);
+                           e.stopPropagation();
+
+                      }else if(e.charCode == 13 || e.keyCode == 13) {
+                    	e.preventDefault();
+                    	//e.stopPropagation();
+                    	sendMessage();
+                      $('#messages').animate({ scrollTop: $('#messages').prop("scrollHeight") + 200 - $('#messages').height() }, 1000);
+                    }
+               
+            }
+            
+            $("#talk").keypress(handleReturnKey);
+            
+            chatSocket.onmessage = receiveEvent;
+            
+        });
+        
+        window.addEventListener("unload", disconnect, false);
+        
+        function disconnect()
+        {
+        	chatSocket.close();
+        }
+
+function getCaret(el) {
+  if (el.selectionStart) {
+     return el.selectionStart;
+  } else if (document.selection) {
+     el.focus();
+
+   var r = document.selection.createRange();
+   if (r == null) {
+    return 0;
+   }
+
+    var re = el.createTextRange(),
+    rc = re.duplicate();
+    re.moveToBookmark(r.getBookmark());
+    rc.setEndPoint('EndToStart', re);
+
+    return rc.text.length;
+  }  
+  return 0;
+}
+    
+    </script>
+    
