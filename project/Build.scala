@@ -17,8 +17,7 @@ object ApplicationBuild extends Build {
   //  val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).settings(
     val main = play.Project(appName, appVersion, appDependencies).settings(
       // Add your own project settings here     
-      resolvers += "jpm repository" at "http://repo-proxy.jpmchase.net/maven/content/groups/jpmc-public/"
-      
+     
 
     )
 
