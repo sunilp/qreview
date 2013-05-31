@@ -72,6 +72,7 @@ ALTER TABLE review_dtl DROP comment varchar(2000);
 ALTER TABLE review_dtl DROP groupname varchar(2000);
 
 
+
 SET REFERENTIAL_INTEGRITY FALSE;
 
 drop table if exists user_dtl;
