@@ -11,7 +11,8 @@ object ApplicationBuild extends Build {
       // Add your project dependencies here,
       javaCore,javaJdbc,javaJpa,
       "org.apache.poi" % "poi" % "3.8",
-      "org.tmatesoft.svnkit" % "svnkit" % "1.7.8"
+      "org.tmatesoft.svnkit" % "svnkit" % "1.7.8",
+        "postgresql" % "postgresql" % "9.1-901.jdbc4"
     )
 
   //  val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).settings(
