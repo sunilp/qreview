@@ -271,3 +271,6 @@ with userlist(username) as(select suv.username from user_dtl as suv where userna
 	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:975)
 	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1478)
 	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:104)
+05-31 23:39:47 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER TABLE REVIEW_DTL MODIFY[*] (SUMMERY VARCHAR(2000)) "; expected "., ADD, SET, RENAME, DROP, ALTER"; SQL statement:
+ALTER TABLE review_dtl MODIFY (summery varchar(2000)) [42001-168]
