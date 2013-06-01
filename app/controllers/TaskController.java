@@ -89,7 +89,7 @@ public class TaskController extends Controller {
 		try {
 			parsedDate = formater.parse(date);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		return parsedDate;
 	}

@@ -34,6 +34,8 @@ create table review_dtl (
   line                varchar(255),
   revision                varchar(255),
   status                varchar(255),
+  comment                        varchar(4000),
+  groupname                      varchar(255),
   constraint pk_review primary key (reviewId))
 ;
 

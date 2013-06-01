@@ -101,7 +101,7 @@ public class Task{
 	
 	public static void create(Connection connection,Task task) {
 		  try{
-		  PreparedStatement ps = connection.prepareStatement("insert into task_dtl(id,owner,todo,status,details,due,createdAt,closedAt,author,tskgroup,done,active) values (task_dtl_seq.nextval,?,?,?,?,?,?,?,?,?,?,?) ");
+		  PreparedStatement ps = connection.prepareStatement("insert into task_dtl(id,owner,todo,status,details,due,createdAt,closedAt,author,tskgroup,done,active) values (nextval('task_dtl_seq'),?,?,?,?,?,?,?,?,?,?,?) ");
 		  ps.setString(1, task.owner);
 		  ps.setString(2, task.todo);
 		  ps.setString(3, task.status);

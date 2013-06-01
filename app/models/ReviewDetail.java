@@ -158,7 +158,7 @@ public class ReviewDetail {
 	public static String getLastAddition(Connection connection, String userId){
 		String reviewId=null;
 		 try {
-			PreparedStatement ps = connection.prepareStatement("select reviewId from (select reviewId from review_dtl where reviewerId=? order by creation_dt desc)res where rownum=1 ");
+			PreparedStatement ps = connection.prepareStatement("select reviewId from (select reviewId , row_number() over() as rownum from review_dtl where reviewerId=? order by creation_dt desc)res where rownum=1 ");
 
 			   ps.setString(1, userId);
 			   ps.execute();

@@ -179,7 +179,7 @@ public class ReviewController extends Controller{
 		//DataSource ds = DB.getDataSource();
 		//  Connection connection = DB.getConnection();
 		  try{
-		  PreparedStatement ps = connection.prepareStatement("insert into review_dtl(reviewId,reviewerId,type,severity,fileName,summery,description,phase,assignedTo,author,creation_dt,modification_dt,modifier,line,revision,status,groupname) values (review_dtl_seq.nextval,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
+		  PreparedStatement ps = connection.prepareStatement("insert into review_dtl(reviewId,reviewerId,type,severity,fileName,summery,description,phase,assignedTo,author,creation_dt,modification_dt,modifier,line,revision,status,groupname) values (nextval('review_dtl_seq'),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
 		 // ps.setString(1, String.valueOf(Math.round(Math.random()*1000)));//Temp
 		  ps.setString(1, review.getReviewerId());
 		  ps.setString(2, review.getType());

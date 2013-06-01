@@ -54,6 +54,7 @@ public class User{
 			 user.personalEmail=rs.getString(8);
 			 user.alias=rs.getString(9);
 		 }
+		 if(user!=null)
 		  System.out.println("executed for user select ["+user.name+"]" );
 		  ps.close();
 		  }catch(Exception e){
@@ -103,7 +104,7 @@ public class User{
 		
 		  try{
 			  Statement st = connection.createStatement();
-			  ResultSet rs  =	  st.executeQuery("with userlist(username) as(select suv.username from user_dtl as suv where username='"+id+"' union all select usr.username from user_dtl as usr inner join userlist as ul on usr.supervisor = ul.username where usr.supervisor is not null) select username from userlist");
+			  ResultSet rs  =	  st.executeQuery("with recursive userlist(username) as(select suv.username from user_dtl as suv where username='"+id+"' union all select usr.username from user_dtl as usr inner join userlist as ul on usr.supervisor = ul.username where usr.supervisor is not null) select username from userlist");
 			  
 	//	  PreparedStatement ps = connection.prepareStatement("with userlist(username) as(select suv.username from user_dtl as suv where username =? union all select usr.username from user_dtl as usr inner join userlist as ul on usr.supervisor = ul.username where usr.supervisor is not null) select username from userlist");
 	//	   ps.setString(1, id);
