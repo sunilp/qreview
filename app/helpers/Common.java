@@ -5,6 +5,8 @@ import java.net.UnknownHostException;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
+import com.mongodb.*;
+import play.*;
 
 public class Common {
 
@@ -13,7 +15,12 @@ public class Common {
 	private static MongoClient getMongoClientInstance() {
 		try {
 			if(mongoClient==null)
-			return new MongoClient( "localhost" , 27017 );
+			{	
+				String text = Play.application().configuration().getString("MONGOLAB_URI");
+
+			MongoClientURI uri = new MongoClientURI(text);
+			return new MongoClient(uri);
+		     }
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
