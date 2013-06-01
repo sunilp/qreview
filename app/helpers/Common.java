@@ -19,7 +19,7 @@ public class Common {
 				String text = Play.application().configuration().getString("MONGOLAB_URI");
 
 			MongoClientURI uri = new MongoClientURI(text);
-			return new MongoClient(uri);
+			return new MongoClient("localhost",27017);
 		     }
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
