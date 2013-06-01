@@ -12,7 +12,7 @@ applications:
       vendor: mongodb
       version: '2.0'
       tier: free
-    mysql-3c840:
-      vendor: mysql
-      version: '5.1'
+    postgresql-db:
+      vendor: postgresql
+      version: '9.0'
       tier: free
