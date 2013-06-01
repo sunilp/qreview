@@ -28,14 +28,15 @@ public class Application extends Controller {
   
   public static Result submit() {
 		 Form<User> filledUserForm = userForm.bindFromRequest();
-		 
-		 if(filledUserForm.hasErrors()) {
+		 User user = filledUserForm.get();
+		 String username = user.username.trim().toLowerCase();
+		 System.out.println("user:"+username);
+		 if(filledUserForm.hasErrors() || user.username==null || "".equals(username.trim())) {
 			 System.out.println("username is null");
 	            return badRequest(index.render("Start putting your view...",filledUserForm));
 	        }
 		 
-		 User user = filledUserForm.get();
-		User dbUser =  User.findById(ReviewController.connection, user.getUsername());
+		 		User dbUser =  User.findById(ReviewController.connection, username);
 		if(dbUser!=null){
 		    System.out.println("user exist in db "+dbUser.getUsername());
 		}else{
@@ -43,7 +44,7 @@ public class Application extends Controller {
 		   System.out.println("Created new User "+user.getUsername());
 		}
 		 //set the username in session
-		 session("username", filledUserForm.get().getUsername());
+		 session("username", username);
 	    return ReviewController.index(filledUserForm.get());
 	  }
 	 

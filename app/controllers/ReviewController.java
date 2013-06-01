@@ -33,7 +33,7 @@ public class ReviewController extends Controller{
 	  final static Connection connection = DB.getConnection();
 	
 	 public static Result index(User user) {
-		 String username =user.getUsername();
+		 String username =user.getUsername().trim().toLowerCase();
 		
 
 		 // DataSource ds = DB.getDataSource();

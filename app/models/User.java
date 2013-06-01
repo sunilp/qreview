@@ -133,7 +133,7 @@ public class User{
 		  try{
 		  PreparedStatement ps = connection.prepareStatement("insert into user_dtl(username,name,password,supervisor) values(?,?,?,?)");
 
-		   ps.setString(1, user.getUsername());
+		   ps.setString(1, user.getUsername().trim().toLowerCase());
 		   ps.setString(2, user.getName());
 		   ps.setString(3, user.getPassword());
 		   ps.setString(4, "344613");
