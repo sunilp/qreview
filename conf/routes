@@ -44,5 +44,8 @@ GET     /subs/:id			   controllers.TaskController.getSubOrdinates(id)
 GET     /user/:id             controllers.UserController.showUser(id)
 POST     /user           	  controllers.UserController.updateUser()
 
+GET     /file                 controllers.FileUploadController.index()
+POST    /file                 controllers.FileUploadController.upload()
+
 
 

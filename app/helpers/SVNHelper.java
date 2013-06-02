@@ -29,10 +29,10 @@ public class SVNHelper {
         /*
          * Default values:
          */
-        String url = "http://subversion.ny.jpmorgan.com/svn/repos/efs-cdpdb/branches/20121121_PR1/";
-        String name = "n557081";
-        String password = "G5xaKOYU";
-        String filePath = "cdpadmin/web/src/main/java/com/jpm/ts/efsdist/ui/cdpadmin/action/AccountSetupAction.java";
+        String url = "";
+        String name = "";
+        String password = "";
+        String filePath = "";
         /*
          * Initializes the library (it must be done before ever using the
          * library itself)

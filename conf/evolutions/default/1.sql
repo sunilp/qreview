@@ -51,6 +51,15 @@ create table review_dtl_history (
   constraint pk_review_dtl_history primary key (review_dtl_htr_id))
 ;
 
+create table file_dtl (
+  id                            varchar(255),
+  name                          varchar(255),
+  bucket                        varchar(255),
+
+  constraint pk_file_dtl primary key (id))
+;
+
+
 create sequence user_dtl_seq start with 1000;
 
 create sequence review_dtl_seq start with 1000;
